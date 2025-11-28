@@ -1,6 +1,7 @@
 cat > deploy-backend.sh << 'EOF'
 #!/usr/bin/env bash
 set -e
+set -x
 
 echo "Writing SSH key..."
 echo "$SSH_KEY" > /tmp/deploy_key
