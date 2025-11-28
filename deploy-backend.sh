@@ -1,4 +1,3 @@
-cat > deploy-backend.sh << 'EOF'
 #!/usr/bin/env bash
 set -e
 set -x
@@ -26,4 +25,3 @@ fi
 
 pm2 save
 REMOTE
-EOF

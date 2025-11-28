@@ -1,4 +1,3 @@
-cat > deploy-frontend.sh << 'EOF'
 #!/usr/bin/env bash
 set -e
 set -x
@@ -16,4 +15,3 @@ rsync -az --delete -e "ssh -i /tmp/deploy_key -o StrictHostKeyChecking=no" \
 ssh -i /tmp/deploy_key -o StrictHostKeyChecking=no "${SSH_USER}@${SSH_HOST}" << 'REMOTE'
 sudo systemctl reload nginx || true
 REMOTE
-EOF
