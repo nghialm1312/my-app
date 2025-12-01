@@ -23,6 +23,7 @@ function App() {
         </button>
         <p>
           This is new code for testing CI/CD
+          This will be deployed when merge into main branch
           Edit <code>src/App.jsx</code> and save to test HMR
         </p>
       </div>
