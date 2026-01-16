@@ -1,13 +1,37 @@
 // backend/index.js
 const express = require('express');
+const cors = require('cors');
+const config = require('./config');
+const routes = require('./routes');
+const errorHandler = require('./middleware/errorHandler');
+const notFound = require('./middleware/notFound');
+const logger = require('./utils/logger');
+
 const app = express();
 
-const PORT = process.env.PORT || 4000;
+// Middleware
+app.use(cors(config.cors));
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
-app.get('/api/hello', (req, res) => {
-  res.json({ message: 'Hello from backend 👋' });
+// Health check endpoint
+app.get('/health', (req, res) => {
+  res.json({
+    success: true,
+    message: 'Server is running',
+    timestamp: new Date().toISOString(),
+  });
 });
 
-app.listen(PORT, () => {
-  console.log(`Backend running on port ${PORT}`);
+// API routes
+app.use('/api', routes);
+
+// Error handling
+app.use(notFound);
+app.use(errorHandler);
+
+// Start server
+app.listen(config.port, () => {
+  logger.info(`Backend running on port ${config.port}`);
+  logger.info(`Environment: ${config.nodeEnv}`);
 });
